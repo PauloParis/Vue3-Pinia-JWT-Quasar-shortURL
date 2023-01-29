@@ -2,14 +2,16 @@ import { defineStore } from "pinia";
 import { api } from "src/boot/axios";
 import { ref } from "vue";
 import { useUserStore } from "./user-store";
+import { useQuasar } from "quasar";
 
 export const useLinkStore = defineStore("link", () => {
   const userStore = useUserStore();
-
   const links = ref([]);
+  const $q = useQuasar();
 
   const createLink = async (longLink) => {
     try {
+      $q.loading.show();
       const res = await api({
         method: "POST",
         url: "links",
@@ -25,11 +27,14 @@ export const useLinkStore = defineStore("link", () => {
     } catch (error) {
       //console.log(error.response?.data || error);
       throw error.response?.data || error;
+    } finally {
+      $q.loading.hide();
     }
   };
 
   const getLinks = async () => {
     try {
+      $q.loading.show();
       const res = await api({
         method: "GET",
         url: "/links",
@@ -56,6 +61,53 @@ export const useLinkStore = defineStore("link", () => {
       links.value = [...res.data.links];
     } catch (error) {
       console.log(error.response?.data || error);
+    } finally {
+      $q.loading.hide();
+    }
+  };
+
+  const removeLink = async (_id) => {
+    try {
+      $q.loading.show();
+      await api({
+        method: "DELETE",
+        url: `/links/${_id}`,
+        headers: {
+          authorization: "Bearer " + userStore.token,
+        },
+      });
+
+      links.value = links.value.filter((item) => item._id !== _id); //devuelve todo lo que sea diferente al _id
+    } catch (error) {
+      console.log(error.response?.data || error);
+      throw error.response?.data || error;
+    } finally {
+      $q.loading.hide();
+    }
+  };
+
+  const modifyLink = async (newLink) => {
+    try {
+      $q.loading.show();
+      await api({
+        method: "PATCH",
+        url: `/links/${newLink._id}`,
+        headers: {
+          authorization: "Bearer " + userStore.token,
+        },
+        data: {
+          longLink: newLink.longLink,
+        },
+      });
+
+      links.value = links.value.map((item) =>
+        item._id === newLink._id ? newLink : item
+      );
+    } catch (error) {
+      console.log(error.response?.data || error);
+      throw error.response?.data || error;
+    } finally {
+      $q.loading.hide();
     }
   };
 
@@ -63,6 +115,8 @@ export const useLinkStore = defineStore("link", () => {
 
   return {
     createLink,
+    removeLink,
+    modifyLink,
     links,
   };
 });

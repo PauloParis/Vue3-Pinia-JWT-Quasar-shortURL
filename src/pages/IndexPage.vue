@@ -1,12 +1,12 @@
 <template>
   <q-page padding>
     <q-btn @click="linkStore.createLink('https://google.cl')">Crear Link</q-btn>
-    <addLinkComp></addLinkComp>>
-    <pre>
+    <addLinkComp class="q-mb-md"></addLinkComp>
+    <!-- <pre>
       {{ linkStore.links }}
-    </pre>
+    </pre> -->
     <template v-for="link in linkStore.links" :key="link._id">
-      <linkCardComp></linkCardComp>
+      <linkCardComp :link="link"></linkCardComp>
     </template>
   </q-page>
 </template>
