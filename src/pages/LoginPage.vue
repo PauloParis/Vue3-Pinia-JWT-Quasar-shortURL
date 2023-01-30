@@ -45,11 +45,18 @@ const handleSubmit = async () => {
   try {
     await userStore.access(email.value, password.value);
     router.push("/");
-    email.value = null;
-    password.value = null;
+    email.value = "";
+    password.value = "";
   } catch (error) {
     console.log("error", error);
-    alertDialogBackend(error.error);
+    //alertDialogBackend(error.error);
+    if (error.error) {
+      alertDialogBackend(error.error);
+    } else if (error.errors[0].msg) {
+      alertDialogBackend(error.errors[0].msg);
+    } else {
+      alertDialogBackend();
+    }
   }
 };
 
