@@ -1,12 +1,13 @@
 <template>
   <div>
-    <q-form @submit.prevent="addLink">
+    <q-form @submit.prevent="addLink" ref="formAdd">
       <q-input
         v-model="link"
         label="Ingrese Link"
         :rules="[
           (val) => (val && val.trim() !== '') || 'Escribe algo por favor',
         ]"
+        lazy-rules
       >
       </q-input>
       <q-btn
@@ -30,6 +31,7 @@ const { showNotify } = useNotify();
 
 const link = ref("");
 const loading = ref(false);
+const formAdd = ref(null);
 
 const addLink = async () => {
   loading.value = true;
@@ -37,6 +39,7 @@ const addLink = async () => {
     await linkStore.createLink(link.value);
     showNotify("Link agregado con exito", "green");
     link.value = "";
+    formAdd.value.resetValidation();
   } catch (error) {
     console.log(error.errors);
     if (error.errors)
