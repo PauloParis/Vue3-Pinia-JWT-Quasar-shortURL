@@ -42,14 +42,14 @@ const routes = [
           auth: true,
         },
       },
-      {
-        path: "/:nanoid",
-        component: () => import("pages/RedirectPage.vue"),
-        beforeEnter: redirectLink,
-      },
     ],
   },
 
+  {
+    path: "/:nanoid",
+    component: () => import("pages/RedirectPage.vue"),
+    beforeEnter: redirectLink,
+  },
   // Always leave this as last one,
   // but you can also remove it
   {

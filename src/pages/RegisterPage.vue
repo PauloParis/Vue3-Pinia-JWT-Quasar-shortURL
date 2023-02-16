@@ -1,38 +1,61 @@
 <template>
   <q-page padding class="row justify-center">
-    <div class="col-12 col-sm col-md-5">
-      <h3>Register</h3>
-      <q-form @submit.prevent="handleSubmit">
-        <q-input
-          v-model="email"
-          type="email"
-          label="Ingrese email"
-          :rules="[
-            (val) =>
-              (val && /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(val)) ||
-              'Escriba un email correcto',
-          ]"
-        >
-        </q-input>
-        <q-input
-          v-model="password"
-          type="password"
-          label="Ingrese password"
-          :rules="[(val) => (val && val.length > 5) || 'Minimo 6 caracteres']"
-        >
-        </q-input>
-        <q-input
-          v-model="repassword"
-          type="password"
-          label="Repita password"
-          :rules="[
-            (val) => (val && val === password) || 'No coinciden las password',
-          ]"
-        >
-        </q-input>
+    <div class="col-12 col-sm-7 col-md-8 text-center">
+      <h3 class="text-blue-grey-10">Register</h3>
+      <div class="bordes">
+        <q-form @submit.prevent="handleSubmit" class="q-ma-lg">
+          <q-input
+            v-model="email"
+            type="email"
+            label="Ingrese email"
+            :rules="[
+              (val) =>
+                (val && /^[^@]+@[^@]+\.[a-zA-Z]{2,}$/.test(val)) ||
+                'Escriba un email correcto',
+            ]"
+          >
+          </q-input>
+          <q-input
+            v-model="password"
+            :type="isPwd ? 'password' : 'text'"
+            label="Ingrese password"
+            :rules="[(val) => (val && val.length > 5) || 'Minimo 6 caracteres']"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isPwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isPwd = !isPwd"
+              />
+            </template>
+          </q-input>
+          <q-input
+            v-model="repassword"
+            :type="isRpwd ? 'password' : 'text'"
+            label="Repita password"
+            :rules="[
+              (val) => (val && val === password) || 'No coinciden las password',
+            ]"
+          >
+            <template v-slot:append>
+              <q-icon
+                :name="isRpwd ? 'visibility_off' : 'visibility'"
+                class="cursor-pointer"
+                @click="isRpwd = !isRpwd"
+              />
+            </template>
+          </q-input>
 
-        <q-btn label="Register" type="submit"></q-btn>
-      </q-form>
+          <q-btn
+            label="Register"
+            color="primary"
+            outline
+            glossy
+            type="submit"
+            disable
+          ></q-btn>
+        </q-form>
+      </div>
     </div>
   </q-page>
 </template>
@@ -48,9 +71,11 @@ const $q = useQuasar();
 const userStore = useUserStore();
 const router = useRouter();
 
-const email = ref("paulo@test.com");
+const email = ref("UsuarioDePrueba@test.com");
 const password = ref("123456");
 const repassword = ref("123456");
+const isPwd = ref(true);
+const isRpwd = ref(true);
 
 const handleSubmit = async () => {
   try {

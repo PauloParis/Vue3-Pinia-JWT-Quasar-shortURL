@@ -42,7 +42,7 @@ export const useLinkStore = defineStore("link", () => {
           authorization: "Bearer " + userStore.token,
         },
       });
-      console.log(res.data);
+      //console.log(res.data);
 
       //map devuelve la misma cantidad de elementos
 

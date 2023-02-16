@@ -1,11 +1,11 @@
 <template>
   <div>
-    <q-card class="my-card q-mt-sm">
+    <q-card class="my-card q-mt-md">
       <q-card-section>
         <div class="text-overline">
           {{ link.nanoLink }}
         </div>
-        {{ link }}
+        {{ link.longLink }}
       </q-card-section>
 
       <q-separator></q-separator>
@@ -24,8 +24,28 @@
           round
           icon="mdi-pencil-outline"
         ></q-btn>
-        <q-btn @click="copyLink(link.nanoLink)" flat color="primary"
-          >Copy</q-btn
+        <q-btn
+          icon="mdi-eye-outline"
+          @click="showLink(link.nanoLink)"
+          round
+          flat
+          color="primary"
+        ></q-btn>
+        <p
+          v-if="show"
+          style="display: inline"
+          class="text-overline bordes q-pa-sm q-ml-sm"
+        >
+          {{ path }}
+        </p>
+        <q-btn
+          v-if="show"
+          @click="copyLink"
+          flat
+          color="green"
+          rounded=""
+          class="q-ml-sm"
+          >Copiar</q-btn
         >
       </q-card-section>
     </q-card>
@@ -36,19 +56,30 @@
 import { useLinkStore } from "src/stores/link-store";
 import { useQuasar } from "quasar";
 import { useNotify } from "src/composables/notifyHook";
+import { ref } from "vue";
 
 const linkStore = useLinkStore();
 const $q = useQuasar();
 const { errorNotify, successNotify } = useNotify();
+const path = ref("");
+const show = ref(false);
 
 defineProps({
   link: Object,
 });
 
-const copyLink = async (nanoLink) => {
+function showLink(nanoLink) {
+  path.value = `${process.env.FRONT_URI}/${nanoLink}`;
+  show.value = !show.value;
+  //return path.value;
+}
+
+const copyLink = async (/* nanoLink */) => {
   try {
-    const path = `${process.env.FRONT_URI}/${nanoLink}`;
-    await navigator.clipboard.writeText(path);
+    //path.value = `${process.env.FRONT_URI}/${nanoLink}`;
+    /* const pathlink = showLink(nanoLink);
+    console.log(pathlink); */
+    await navigator.clipboard.writeText(path.value);
     successNotify("Se copió el nanolink");
   } catch (error) {
     console.log(error);

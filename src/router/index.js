@@ -1,5 +1,5 @@
 import { route } from "quasar/wrappers";
-import { useUserStore } from "src/stores/user-store";
+import { useUserStore } from "src/stores/user-store.js";
 import {
   createRouter,
   createMemoryHistory,

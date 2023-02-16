@@ -65,15 +65,18 @@ export const useUserStore = defineStore("user", () => {
 
   const setTime = () => {
     setTimeout(() => {
-      console.log("se refresco");
+      //console.log("se refresco");
       refreshToken();
     }, expiresIn.value * 1000 - 6000); // -6 seg
   };
 
   const refreshToken = async () => {
-    console.log("RefreshToken");
+    //console.log("RefreshToken");
     try {
       const res = await api.get("/auth/refresh");
+
+      /* console.log("este es el token: ", res.data.token);
+      console.log("este es el tiempo: ", res.data.token); */
       token.value = res.data.token;
       expiresIn.value = res.data.expiresIn;
       sessionStorage.setItem("user", true);
