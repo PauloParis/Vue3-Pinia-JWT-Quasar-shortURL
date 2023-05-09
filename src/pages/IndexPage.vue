@@ -1,7 +1,8 @@
 <template>
-  <q-page padding style="padding-left: 32px; padding-right: 32px">
+  <q-page padding class="q-px-xl">
+    <!--  style="padding-left: 32px; padding-right: 32px" -->
     <!-- <q-btn @click="linkStore.createLink('https://google.cl')">Crear Link</q-btn> -->
-    <addLinkComp class="q-mb-md"></addLinkComp>
+    <addLinkComp class="q-mb-lg"></addLinkComp>
     <!-- <pre>
       {{ linkStore.links }}
     </pre> -->

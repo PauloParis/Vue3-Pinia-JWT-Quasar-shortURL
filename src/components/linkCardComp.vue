@@ -3,9 +3,9 @@
     <q-card class="my-card q-mt-md">
       <q-card-section>
         <div class="text-overline">
-          {{ link.nanoLink }}
+          <span class="text-primary">id: </span>{{ link.nanoLink }}
         </div>
-        {{ link.longLink }}
+        <span class="text-primary">link: </span> {{ link.longLink }}
       </q-card-section>
 
       <q-separator></q-separator>
@@ -41,9 +41,9 @@
         <q-btn
           v-if="show"
           @click="copyLink"
-          flat
           color="green"
-          rounded=""
+          rounded
+          outline
           class="q-ml-sm"
           >Copiar</q-btn
         >

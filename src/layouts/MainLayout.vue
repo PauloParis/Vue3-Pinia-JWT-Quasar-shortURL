@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <q-header elevated>
-      <q-toolbar class="">
+      <q-toolbar class="q-py-sm q-px-xl">
         <!-- <q-btn
           flat
           dense
@@ -11,13 +11,13 @@
           @click="toggleLeftDrawer"
         /> -->
 
-        <q-toolbar-title class="q-ml-md"> Short Link </q-toolbar-title>
+        <q-toolbar-title class="no-padding"> Short Link </q-toolbar-title>
 
         <q-btn
           v-if="userStore.token"
           class="q-mr-md"
           color="indigo-10"
-          glossy
+          rounded
           to="/"
           >Inicio</q-btn
         >
@@ -41,11 +41,11 @@
           v-if="userStore.token"
           class="q-mr-md"
           color="cyan-10"
-          glossy
+          rounded
           to="/protected"
           >Protected</q-btn
         >
-        <q-btn v-if="userStore.token" color="red" glossy @click="logout"
+        <q-btn v-if="userStore.token" color="red" rounded @click="logout"
           >Logout</q-btn
         >
       </q-toolbar>

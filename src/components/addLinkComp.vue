@@ -1,7 +1,11 @@
 <template>
   <div>
-    <q-form @submit.prevent="addLink" ref="formAdd">
+    <q-form class="row items-center" @submit.prevent="addLink" ref="formAdd">
       <q-input
+        class="col-12 col-sm-9 q-mt-md no-padding"
+        rounded
+        outlined
+        bg-color="white"
         v-model="link"
         label="Ingrese Link"
         :rules="[
@@ -10,9 +14,12 @@
         lazy-rules
       >
       </q-input>
+      <div class="q-mx-sm"></div>
       <q-btn
-        class="q-mt-sm full-width"
+        class="col-12 col-sm q-mt-md q-pa-sm"
+        rounded
         label="Agregar"
+        glossy
         color="primary"
         type="submit"
         :loading="loading"

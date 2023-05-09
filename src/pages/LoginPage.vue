@@ -1,7 +1,7 @@
 <template>
   <q-page padding class="row justify-center">
-    <div class="col-12 col-sm-7 col-md-8 text-center">
-      <h3 class="text-blue-grey-10">Login</h3>
+    <div class="col-12 col-sm-6 col-lg-4 text-center">
+      <h3 class="text-blue-grey-10 text-weight-bolder">Login</h3>
       <div class="bordes">
         <q-form @submit.prevent="handleSubmit" class="q-ma-lg">
           <q-input
@@ -29,7 +29,13 @@
               />
             </template>
           </q-input>
-          <q-btn label="Login" color="primary" glossy type="submit"></q-btn>
+          <q-btn
+            class="q-mt-md"
+            label="Login"
+            color="primary"
+            glossy
+            type="submit"
+          ></q-btn>
         </q-form>
       </div>
     </div>
@@ -47,7 +53,7 @@ const $q = useQuasar();
 const userStore = useUserStore();
 const router = useRouter();
 
-const email = ref("UsuarioDePrueba@test.com");
+const email = ref("admin@test.com");
 const password = ref("123456");
 const isPwd = ref(true);
 
